@@ -15,5 +15,6 @@ public class FindHouseProxy implements ProxyInterface{
         System.out.println("1、看房");
         proxyInterface.findHouse();
         System.out.println("3、售后");
+        System.out.println("test");
     }
 }
