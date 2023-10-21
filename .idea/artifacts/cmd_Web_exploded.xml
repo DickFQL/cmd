@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="cmd:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/cmd_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="cmd/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="cmd" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="servlet-api-2.5" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.28-bin" />
+          <element id="library" level="project" name="dom4j-1.6.1" />
+          <element id="library" level="project" name="taglibs-standard-spec-1.2.5" />
+          <element id="library" level="project" name="taglibs-standard-impl-1.2.5" />
+          <element id="library" level="project" name="jsp-api-2.0" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
