@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- *代理类  增强目标类
+ *创建代理类的类
  */
 public class CreateProxy {
 
@@ -14,11 +14,11 @@ public class CreateProxy {
     public CreateProxy(Object object) {
         this.object = object;
     }
-    public Object getObject(){
+    public Object getProxy(){
 
         /**
-         * ClassLoader loader 目标类的加载器 固定写法
-         * Class[] interfaces 目标对象实现的接口 固定写法
+         * ClassLoader loader 目标类的加载器 固定写法object.getClass(),getClassLoader()
+         * Class[] interfaces 目标对象实现的接口 固定写法object.getClass(),getInterfaces()
          * InvocationHandler 是一个增强目标方法的接口
          *
          */
@@ -28,21 +28,13 @@ public class CreateProxy {
              * @param proxy the proxy instance that the method was invoked on
              *基本用不到 是目标对象
              *
-             * @param method the {@code Method} instance corresponding to
-             * the interface method invoked on the proxy instance.  The declaring
-             * class of the {@code Method} object will be the interface that
-             * the method was declared in, which may be a superinterface of the
-             * proxy interface that the proxy class inherits the method through.
-             *Method 目标对象的方法字节码对象
+             * @param method
+             *Method 代理对象的方法字节码对象
              *
              *
              *
              * @param args an array of objects containing the values of the
-             * arguments passed in the method invocation on the proxy instance,
-             * or {@code null} if interface method takes no arguments.
-             * Arguments of primitive types are wrapped in instances of the
-             * appropriate primitive wrapper class, such as
-             * {@code java.lang.Integer} or {@code java.lang.Boolean}.
+             * 调用目标方法需要的参数
              *
              *
              * @return
@@ -50,10 +42,15 @@ public class CreateProxy {
              */
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                return null;
+
+                System.out.println("前置通知");
+//              通过反射调用目标方法
+                Object invoke = method.invoke(object, args);
+                System.out.println("后置通知");
+                return invoke;
             }
         });
 
-        return null;
+        return obj;
     }
 }
