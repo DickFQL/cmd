@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    装配user的实例
+        bean标签的作用：装配组件的实例
+        id属性：组件的唯一标识
+        class属性：记录的全类名，spring在底层会通过反射机制创建实例
+-->
+    <bean id="user" class="day25_springioc.pojo.User" scope="singleton" init-method="init" destroy-method="destory">
+
+        <constructor-arg index="0" value="0"/>
+        <constructor-arg index="1" value=""/>
+    </bean>
+
+    <bean id="student" class="day25_springioc.pojo.Student">
+<!--        若全类名报错，则类中没有无参构造-->
+<!--        可以通过set方法赋值-->
+<!--        ref:引入当前容器别的实例-->
+
+        <constructor-arg index="0" value="dick"/>
+        <constructor-arg index="1" value="18"/>
+        <constructor-arg index="2">
+            <list>
+                <value>123</value>
+                <value>456</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg index="3">
+            <map>
+                <entry key="1" value="112"/>
+                <entry key="2" value="223"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg index="4">
+            <list>
+                <value>bcde</value>
+                <value>asdf</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg index="5" ref="datetest"/>
+
+
+        <property name="name" value="dick"/>
+
+        <property name="age" value="123"/>
+
+        <property name="list" >
+            <list>
+                <value>123</value>
+            </list>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="123" value="456"/>
+                <entry key="456" value="789"/>
+            </map>
+        </property>
+        <property name="strings">
+            <list>
+                <value>123</value>
+                <value>456</value>
+            </list>
+        </property>
+        <!--
+            给日期date赋值
+            ref:通过id引入当前spring容器中的实例
+        -->
+        <property name="date" ref="datetest"></property>
+
+    </bean>
+<!--    将日期的实例交给spring管理-->
+    <bean id="datetest" class="java.util.Date" />
+
+<!--    <bean id="testservlet" class="springIOC.servlet.TestServlet" >-->
+<!--        <property name="testService" ref="testservice"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="testservice" class="springIOC.service.TestService1" >-->
+<!--        <property name="testDao" ref="testDAO"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="testDAO" class="springIOC.dao.TestDao" ></bean>-->
+
+
+</beans>

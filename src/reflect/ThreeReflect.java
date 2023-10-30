@@ -37,6 +37,7 @@ public class ThreeReflect {
     }
 
     public void setName(String name) {
+        System.out.println("这个被执行了");
         this.name = name;
     }
 

@@ -1,4 +1,4 @@
-package factory.varyfactory;
+package springIOC;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
