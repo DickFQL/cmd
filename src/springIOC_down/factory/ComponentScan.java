@@ -79,7 +79,7 @@ public class ComponentScan {
                                     //如果接口匹配，就完成注入
                                     if (anInterface == declaredField.getType()){
                                         declaredField.setAccessible(true);
-                                        if (controller !=null && !controller.value().equals(" ")){
+                                        if (controller !=null && !controller.value().equals("")){
                                             declaredField.setAccessible(true);
                                             declaredField.set(Factory.getBeanMap(controller.value()), stringObjectEntry.getValue() );
 
@@ -87,7 +87,7 @@ public class ComponentScan {
                                             String string = lowFirstword(aClass.getSimpleName());
                                             declaredField.set(Factory.getBeanMap(string), stringObjectEntry.getValue() );
                                         }
-                                        if (service !=null && !service.value().equals(" ")){
+                                        if (service !=null && !service.value().equals("")){
                                             declaredField.setAccessible(true);
                                             declaredField.set(Factory.getBeanMap(service.value()), stringObjectEntry.getValue() );
 
@@ -95,7 +95,7 @@ public class ComponentScan {
                                             String string = lowFirstword(aClass.getSimpleName());
                                             declaredField.set(Factory.getBeanMap(string), stringObjectEntry.getValue() );
                                         }
-                                        if (repository !=null && !repository.value().equals(" ")){
+                                        if (repository !=null && !repository.value().equals("")){
                                             declaredField.setAccessible(true);
                                             declaredField.set(Factory.getBeanMap(repository.value()), stringObjectEntry.getValue() );
 
@@ -150,6 +150,7 @@ public class ComponentScan {
 
     }
     public static String lowFirstword(String string){
+        //将字符串转为字符数组
         Character charArray = string.toCharArray()[0];
         String arrayString = charArray.toString();
         return arrayString.toLowerCase()+string.substring(1);

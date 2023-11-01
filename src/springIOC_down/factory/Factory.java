@@ -14,6 +14,7 @@ public class Factory {
     public static void setBeanMap(Map<String, Object> beanMap) {
         Factory.beanMap = beanMap;
     }
+
     public static Map<String, Object> getBean() {
         return beanMap;
     }

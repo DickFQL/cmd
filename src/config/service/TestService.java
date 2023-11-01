@@ -1,15 +1,12 @@
-package springIOC_down.Inter.service;
+package config.service;
 
-import springIOC_down.Inter.dao.Dao;
-import springIOC_down.annotation.Autowired;
-import springIOC_down.annotation.Service;
-
-
+import config.dao.Dao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 //业务层
 @Service
-
-public class TestService1 implements ServiceIn {
+public class TestService implements ServiceIn {
 
     @Autowired
     private Dao testDao ;
@@ -20,7 +17,6 @@ public class TestService1 implements ServiceIn {
     @Override
     public void saveAccount(){
         testDao.saveAccount();
-
     }
 
 }
