@@ -32,5 +32,9 @@
     <orderEntry type="library" name="spring-context-5.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="commons-logging-1.2" level="project" />
     <orderEntry type="library" name="spring-aop-5.0.2.RELEASE" level="project" />
+    <orderEntry type="library" name="spring-jdbc-5.0.2.RELEASE" level="project" />
+    <orderEntry type="library" name="junit-4.13" level="project" />
+    <orderEntry type="library" name="java-dev" level="project" />
+    <orderEntry type="library" name="aopalliance-1.0" level="project" />
   </component>
 </module>

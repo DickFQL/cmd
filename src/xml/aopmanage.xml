@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--开启spring对注解的支持，开启spring的扫描包-->
+
+    <bean id="accountService" class="springAOP.transaction.service.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+
+    </bean>
+    <bean id="accountDao" class="springAOP.transaction.dao.AccountDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+
+    </bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="jdbc:mysql://localhost:3306/test"></property>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="rootroot"></property>
+
+    </bean>
+<!--    配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+
+    </bean>
+<!--配置事务的通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+<!--
+        一般开启事务是在增删改的情况下进行的
+        配置事务通知：
+            isolation 设置事务的隔离级别，默认情况是DEFAULT,表示数据库级别的
+            propagation 设置是否开启事务
+                REQUIRED 支持当前事务，如果没有就创建，在增删改的场景下开启事务
+                SUPPORT 支持当前事务  如果没有事务，就以非事务方式执行
+            -read-only 设置是否只读
+                默认值是false
+                -true开启只读，只在查询的业务场景下会用到只读
+                -false 一般开启事务，就好关闭只读
+            -timeout    设置超时时间
+                -永不超生 -1
+                -设置为整数，以秒为单位
+            -no-rollback-for 设置异常是否回滚 定义一个异常 除了该异常不回滚之外，其他异常都回滚
+            -rollback-for   设置异常是否回滚    定义一个异常 除了该异常回滚外，其他异常都不回滚
+                -默认情况 所有异常都回滚
+-->
+        <tx:attributes>
+<!--            name属性：用于匹配具体的方法
+                -约定大于配置
+                    所有增删改：一update开头
+                    所有查询：以find开头
+-->
+            <tx:method name="update*"  propagation="REQUIRED" read-only="false"/>
+            <tx:method name="find*"  propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+<!--    配置切面-->
+    <aop:config>
+<!--        配置切入点-->
+        <aop:pointcut id="pt01" expression="execution(* springAOP.transaction.service.AccountService.*(..))"/>
+<!--        配置通知-->
+         <aop:advisor advice-ref="txAdvice" pointcut-ref="pt01"></aop:advisor>
+
+    </aop:config>
+</beans>
+
+
+

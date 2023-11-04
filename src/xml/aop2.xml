@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--开启spring对注解的支持，开启spring的扫描包-->
+
+<!--
+通过spring来配置aop（配置切面），基于xml的方式
+切面：切入点和通知之间的关系
+    -配置切面就是配置切入点和通知
+
+-->
+
+<!--    注册通知-->
+    <bean id="loggerAdvice2" class="springAOP.advice.LoggerAdvice"></bean>
+
+<!--    配置目标类的实例-->
+    <bean id="moduleService" class="springAOP.service.ModuleServiceImpl"></bean>
+<!--    配置aop的配置-->
+    <aop:config>
+
+<!--        声明切入点表达式-->
+        <aop:pointcut id="pt01" expression="execution(* springAOP.service.ModuleService.*(..))"/>
+<!--        配置切面-->
+        <aop:aspect ref="loggerAdvice2">
+
+<!--&lt;!&ndash;            配置前置通知&ndash;&gt;-->
+<!--            <aop:before method="beforeAdvice" pointcut-ref="pt01" ></aop:before>-->
+<!--&lt;!&ndash;            配置后置通知&ndash;&gt;-->
+<!--            <aop:after-returning method="afterAdvice" pointcut-ref="pt01" ></aop:after-returning>-->
+<!--&lt;!&ndash;            配置异常通知&ndash;&gt;-->
+<!--            <aop:after-throwing method="exceptionAdvice" pointcut-ref="pt01" ></aop:after-throwing>-->
+<!--&lt;!&ndash;            配置最终通知&ndash;&gt;-->
+<!--            <aop:after method="finallyAdvice" pointcut-ref="pt01" ></aop:after>-->
+
+            <!--配置环绕通知-->
+            <aop:around method="aroundAdvice" pointcut-ref="pt01"></aop:around>
+        </aop:aspect>
+
+    </aop:config>
+
+</beans>
+
+
+
